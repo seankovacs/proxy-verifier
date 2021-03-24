@@ -220,7 +220,7 @@ var ProxyVerifier = module.exports = {
 			ipAddressCheckFn: ProxyVerifier._getIpAddressFromCheckProxyServiceResponse
 		});
 
-		ProxyVerifier.request('get', options.ipAddressCheckUrl, options, function(error, data, status, headers) {
+		ProxyVerifier.request('get', options.ipAddressCheckUrl, options, function(error, data, status, headers, time) {
 
 			if (error) {
 				return cb(error);
@@ -295,7 +295,7 @@ var ProxyVerifier = module.exports = {
 
 			numAttempts++;
 
-			ProxyVerifier.request('get', options.testUrl, requestOptions, function(error, data, status, headers) {
+			ProxyVerifier.request('get', options.testUrl, requestOptions, function(error, data, status, headers, time) {
 
 				if (!error) {
 
@@ -319,7 +319,8 @@ var ProxyVerifier = module.exports = {
 				} else {
 
 					result = {
-						ok: true
+						ok: true,
+						time: time
 					};
 				}
 
@@ -355,7 +356,8 @@ var ProxyVerifier = module.exports = {
 		var requestOptions = _.extend({}, _.omit(options, 'proxy', 'data'), {
 			method: method.toUpperCase(),
 			url: uri,
-			headers: {}
+			headers: {},
+			time: true
 		});
 
 		if (options.proxy) {
@@ -419,7 +421,7 @@ var ProxyVerifier = module.exports = {
 					}
 				}
 
-				done(null, responseData, status, headers);
+				done(null, responseData, status, headers, res.elapsedTime);
 			});
 		});
 
