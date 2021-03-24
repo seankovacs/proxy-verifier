@@ -325,9 +325,9 @@ var ProxyVerifier = module.exports = {
 				}
 
 				if (options.includeAll) {
-					result.data = data;
+					// result.data = data;
 					result.status = status;
-					result.headers = headers;
+					// result.headers = headers;
 				}
 
 				// Don't wait in the case of success.
@@ -421,7 +421,7 @@ var ProxyVerifier = module.exports = {
 					}
 				}
 
-				done(null, responseData, status, headers, res.elapsedTime);
+				done(null, responseData, status, headers, res.timings);
 			});
 		});
 
