@@ -357,7 +357,8 @@ var ProxyVerifier = module.exports = {
 			method: method.toUpperCase(),
 			url: uri,
 			headers: {},
-			time: true
+			time: true,
+			timeout: 10000
 		});
 
 		if (options.proxy) {
