@@ -12,9 +12,9 @@ var httpStatusCodes = require('./httpStatusCodes');
 
 var ProxyVerifier = module.exports = {
 
-	_defaultTestUrl: 'http://www.google.com',
-	_ipAddressCheckUrl: 'http://www.google.com',
-	_tunnelTestUrl: 'http://www.google.com',
+	_defaultTestUrl: 'https://www.google.com',
+	_ipAddressCheckUrl: 'https://www.google.com',
+	_tunnelTestUrl: 'https://www.google.com',
 
 	/*
 		Array of header keys for exact matching.
@@ -371,11 +371,11 @@ var ProxyVerifier = module.exports = {
 				options.agentOptions || {}
 			);
 
-			requestOptions.agent = new ProxyAgent(agentOptions);
-
-			if (proxy.auth) {
-				requestOptions.headers['Proxy-Authorization'] = proxy.auth;
+			if(proxy.username && proxy.password) {
+				agentOptions.auth = proxy.username + ':' + proxy.password;
 			}
+
+			requestOptions.agent = new ProxyAgent(agentOptions);
 		}
 
 		if (options.data) {
@@ -435,13 +435,13 @@ var ProxyVerifier = module.exports = {
 	normalizeProxy: function(proxy) {
 
 		proxy = ProxyVerifier._deepClone(proxy);
-		var auth = proxy.username && proxy.password ? "Basic " + Buffer.from(proxy.username + ":" + proxy.password).toString('base64') : proxy.auth;
 
 		return {
 			ipAddress: proxy.ipAddress || proxy.ip_address || null,
 			port: proxy.port || null,
 			protocols: proxy.protocols || (proxy.protocol && [proxy.protocol]) || null,
-			auth: auth || null
+			username: proxy.username || null,
+			password: proxy.password || null
 		};
 	},
 
