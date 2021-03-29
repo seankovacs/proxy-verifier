@@ -1,6 +1,6 @@
 {
   "name": "proxy-verifier",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "description": "Check that proxies are working, verify their anonymity level, lookup their geographic location by IP address, check for other capabilities such as tunneling and available protocols.",
   "keywords": [
     "proxy",
@@ -21,7 +21,6 @@
   "dependencies": {
     "async": "3.2.0",
     "depd": "2.0.0",
-    "geoip-lite": "1.4.2",
     "proxy-agent": "4.0.1",
     "request": "2.88.2",
     "underscore": "1.12.1"

@@ -3,7 +3,6 @@
 var _ = require('underscore');
 var async = require('async');
 var deprecate = require('depd')('ProxyVerifier');
-var geoip = require('geoip-lite');
 var ProxyAgent = require('proxy-agent');
 var request = require('request');
 var url = require('url');
@@ -499,35 +498,4 @@ ProxyVerifier.anonymityLevel = deprecate.function(
 ProxyVerifier.tunnel = deprecate.function(
 	ProxyVerifier.testTunnel,
 	'tunnel() has been deprecated; use testTunnel() instead'
-);
-
-var lookupCountry = function(proxy) {
-	proxy = ProxyVerifier.normalizeProxy(proxy);
-	var geo = geoip.lookup(proxy.ipAddress);
-	return geo.country.toLowerCase();
-};
-
-ProxyVerifier.lookupCountry = deprecate.function(
-	lookupCountry,
-	'lookupCountry() has been deprecated and will be removed in a future release'
-);
-
-ProxyVerifier.country = deprecate.function(
-	lookupCountry,
-	'country() has been deprecated and will be removed in a future release'
-);
-
-ProxyVerifier.loadCountryData = deprecate.function(
-	function(options, cb) {
-		// Do nothing.
-		_.delay(cb);
-	},
-	'loadCountryData() has been deprecated and will be removed in a future release'
-);
-
-ProxyVerifier.loadCountryDataSync = deprecate.function(
-	function(options) {
-		// Do nothing.
-	},
-	'loadCountryDataSync() has been deprecated and will be removed in a future release'
 );
